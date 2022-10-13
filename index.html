@@ -7,15 +7,41 @@
     <title>My Website</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/fonts/Raleway-VariableFont_wght.ttf">
   </head>
   <body>
     <main>
-        <h1>Welcome to My Website</h1>  
+      <header>
+        <h1>Audibly - what do you hear?</h1>  
+        <span id="mode">
+          <label><input id="modesel2" type="radio" name="ms" value="t">Exploring</label>
+          <label><input id="modesel1" type="radio" name="ms" value="g">Game</label>
+          <span tooltip="Show or hide options panel">Options</span>
+        </span>
+      </header>
+      
+      <div id="controls">
+        <!--<label for="setting_volume">Volume</label>
+        <input id="setting_volume" type="range" min="1" max="100" value="50" />
+        -->
+        <div id="info">
+          <p>Audibly is all about finding a frequency. Test it by clicking one of the buttons below.</p>
+          <p>There is also a game mode. One round per day, play until you miss a tone. Higher difficulty means more points, but you need to pass a threshold before higher difficulties are available</p>
+        </div>
+        
+        <div id="difficulty">
+          <label><input id="d1" class="setting_difficulty" type="radio" name="s_d" value="1" />Simple</label>
+          <label><input id="d2" class="setting_difficulty" type="radio" name="s_d" value="2" />Tricky</label>
+          <label><input id="d3" class="setting_difficulty" type="radio" name="s_d" value="3" />Difficult</label>
+          <label><input id="d4" class="setting_difficulty" type="radio" name="s_d" value="4" />Impossible</label>
+          <label><input id="d5" class="setting_difficulty" type="radio" name="s_d" value="5" />Even worse</label>
+        </div>
+      </div>
+
+      <div id="demo"></div>
+
+      <div id="game"></div>
     </main>
-	
-
-    <div id="bitsAndBobs"></div>
-
     <script src="js/feedback.js"></script>
   </body>
 </html>

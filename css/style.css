@@ -1,7 +1,78 @@
-#bitsAndBobs button{
+body{
+    font-family: Raleway;
+    color:#BEE8D9;
+    background-color: #222;
+}
+
+main{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 94vw;
+    min-width: 800px;
+    background-color: #008260;
+    padding: 1vw;
+}
+
+header{
+    display: flex;
+}
+
+header h1{
+    flex:1;
+}
+
+header span{
+    vertical-align: middle;
+    line-height: 7vh;
+}
+
+#demo{
+    display: flex;
+    flex-flow: row wrap;
+}
+
+#setting_volume{
+    -webkit-transform:rotate(90deg);
+    transform: rotate(90deg);
+}
+
+#controls{
+    right:0px;
+    display:flex;
+}
+
+#info{
+    flex:1;
+}
+
+#difficulty{
+    width: 8vw;
+
+}
+
+span#mode span {
+    margin-left: 2vw;
+}
+
+#difficulty label{
+    display: block;
+    font-size: larger;
+}
+
+button.frqButton{
     background-color: #fff;
-    border: 1px solid #22aaff;
+    border: 1px solid #416396;
     margin: 4px;
-    min-width: 30px;
+    width: 2.5vw;
+    flex:1;
+    height: 10vh;
+    flex-basis: auto;
     padding: 5px;
+}
+
+button.frqButton:hover{
+    background-color: #36454F;
+    color:#BEE8D9;
+    /*background-color:#416396;*/
 }
