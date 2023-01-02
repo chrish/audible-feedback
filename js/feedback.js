@@ -1,3 +1,4 @@
+
 function playSound(input) {
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -70,7 +71,16 @@ function getFrequencies(){
     return frequencies;
 }
 
+function startGame(){
+    /*  Get config
+        Pick list of frequencies
+        Countdown then start timer
+    */
+}
 
+let storage = {
+    
+}
 
 var frq = getFrequencies();
 var elmt = document.getElementById('demo');
@@ -82,3 +92,11 @@ for(var i=0; i<frq.length; i++){
     btn.textContent = frq[i].displayAs;
     elmt.appendChild(btn);
 }
+
+$(function (){
+    $(".menuToggle").on("click", function(){
+        $("#menu").toggle();
+    });
+});
+
+

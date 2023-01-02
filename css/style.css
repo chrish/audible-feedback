@@ -1,3 +1,8 @@
+@font-face {
+    font-family: Raleway;
+    src: url("fonts/Raleway-VariableFont_wght.ttf");
+}
+
 body{
     font-family: Raleway;
     color:#BEE8D9;
@@ -75,4 +80,34 @@ button.frqButton:hover{
     background-color: #36454F;
     color:#BEE8D9;
     /*background-color:#416396;*/
+}
+
+#menu{
+    background-color: #416396;
+    width: 15vw;
+    position: absolute;
+    right: 1vw;
+    top: 5vh;
+    z-index: 1000;
+    box-shadow: 2px 2px 4px #222;
+    padding: 10px;
+}
+
+.menuShow{
+    display: visible;
+    transition: all 1s ease-in-out;
+}
+
+.menuHide{
+    display: none;
+    transition: all 1s ease-in-out;
+}
+
+.closeX{
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    font-weight: bold;
+    top: 5px;
+    display: block;
 }
