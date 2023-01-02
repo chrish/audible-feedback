@@ -1,5 +1,11 @@
+function getVolume(){
+    let vol = document.getElementById("volumeSldr").value/4;
+    console.log(vol);
+    return vol/100;
+}
 
-function playSound(input) {
+
+function playSound(volume, frq, duration = 1) {
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
     var context = new AudioContext();
@@ -9,13 +15,10 @@ function playSound(input) {
     return Math.sin(sampleNumber / (sampleFreq / (Math.PI * 2)))
     }
 
-    var arr = [],
-    volume = input.volume,
-    seconds = input.duration,
-    tone = input.frq
+    var arr = [];
 
-    for (var i = 0; i < context.sampleRate * seconds; i++) {
-        arr[i] = sineWaveAt(i, tone) * volume
+    for (var i = 0; i < context.sampleRate * duration; i++) {
+        arr[i] = sineWaveAt(i, frq) * volume
     }
    
     var buf = new Float32Array(arr.length)
@@ -87,8 +90,8 @@ var elmt = document.getElementById('demo');
 
 for(var i=0; i<frq.length; i++){
     var btn = document.createElement("button");
-    btn.setAttribute("onClick", "playSound({volume: 0.5, duration: 1, frq: " + frq[i].frq + "})");
     btn.setAttribute("class", "frqButton");
+    btn.setAttribute("data-frq", frq[i].frq);
     btn.textContent = frq[i].displayAs;
     elmt.appendChild(btn);
 }
@@ -96,6 +99,10 @@ for(var i=0; i<frq.length; i++){
 $(function (){
     $(".menuToggle").on("click", function(){
         $("#menu").toggle();
+    });
+
+    $(".frqButton").on("click", function(){
+        playSound(getVolume(), $(this).attr("data-frq"), 1);
     });
 });
 

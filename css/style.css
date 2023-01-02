@@ -111,3 +111,20 @@ button.frqButton:hover{
     top: 5px;
     display: block;
 }
+
+#startButton{
+    padding: 25px;
+    text-align: center;
+    width: 10vw;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #36454F;
+    transition: 500ms;
+    cursor: pointer;
+}
+
+#startButton:hover{
+    transition: 500ms;
+    background-color: #345d79;
+
+}
