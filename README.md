@@ -21,3 +21,8 @@ Difficulty is controlled in the following manner:
 * One round per day, regardless of difficulty. 
 * Scoring icon (shareable on SoMe: Level|Streak|Points, eg 1|24|24)
 
+
+
+-----
+
+Increasing volume? Lower volume/successful guess => higher score?

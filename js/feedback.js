@@ -1,3 +1,52 @@
+let storage = {
+    "streaks": [
+        {
+            "id": 1,
+            "startDate": "2020.01.01",
+            "lastDate": "2021.01.01",
+            "longestStreakEver": 43
+        }
+    ]
+}
+
+let rules = [
+    {
+        "id": 1,
+        "numberOfFrequenciesToGuess": 10,
+        "usePredefinedBandOnly": true,
+        "numberOfTriesPerFrequency": 3,
+        "timePerTry": 0,
+        "scoreMultiplier": 1
+    }
+]
+
+function getDifficulties(){
+    let json = [
+        {
+            "id": 1,
+            "displayAs": "Simple"
+        },
+        {
+            "id": 2,
+            "displayAs": "Tricky"
+        },
+        {
+            "id": 3,
+            "displayAs": "Difficult"
+        },
+        {
+            "id": 4,
+            "displayAs": "Impossible"
+        },
+        {
+            "id": 5,
+            "displayAs": "Even worse"
+        }
+    ]
+    
+    return json;
+}
+
 function getVolume(){
     let vol = document.getElementById("volumeSldr").value/4;
     console.log(vol);
@@ -81,7 +130,12 @@ function startGame(){
     */
 }
 
-let storage = {
+function startGame(){
+    // Get difficulty
+    let difficulty = $("#difficulty").value;
+    
+    // Pick random frqs
+
     
 }
 
@@ -97,6 +151,14 @@ for(var i=0; i<frq.length; i++){
 }
 
 $(function (){
+    /** Setup */
+    var diffs = getDifficulties();
+    for (d of diffs){
+        var checked = "";
+        if (d.id == 1) checked = "checked=\checked\"";
+        $("#difficulty").append("<label><input id=\"d" + d.id + "\" class=\"setting_difficulty\" " + checked + " type=\"radio\" name=\"s_d\" value=\"" + d.id + "\" />" + d.displayAs + "</label>");
+    }
+
     $(".menuToggle").on("click", function(){
         $("#menu").toggle();
     });
@@ -104,6 +166,7 @@ $(function (){
     $(".frqButton").on("click", function(){
         playSound(getVolume(), $(this).attr("data-frq"), 1);
     });
+    /** End setup */
 });
 
 
