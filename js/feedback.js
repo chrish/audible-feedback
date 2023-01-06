@@ -9,37 +9,73 @@ let storage = {
     ]
 }
 
-let rules = [
-    {
-        "id": 1,
-        "numberOfFrequenciesToGuess": 10,
-        "usePredefinedBandOnly": true,
-        "numberOfTriesPerFrequency": 3,
-        "timePerTry": 0,
-        "scoreMultiplier": 1
-    }
-]
+function getRules(){
+let rules = 
+    [
+        {
+            "id": 0,
+            "numberOfFrequenciesToGuess": 10,
+            "usePredefinedBandOnly": true,
+            "numberOfTriesPerFrequency": 3,
+            "timePerTry": 0,
+            "scoreMultiplier": 1
+        },
+        {
+            "id": 1,
+            "numberOfFrequenciesToGuess": 10,
+            "usePredefinedBandOnly": true,
+            "numberOfTriesPerFrequency": 3,
+            "timePerTry": 0,
+            "scoreMultiplier": 2
+        },
+        {
+            "id": 2,
+            "numberOfFrequenciesToGuess": 10,
+            "usePredefinedBandOnly": true,
+            "numberOfTriesPerFrequency": 3,
+            "timePerTry": 0,
+            "scoreMultiplier": 3
+        },
+        {
+            "id": 3,
+            "numberOfFrequenciesToGuess": 10,
+            "usePredefinedBandOnly": true,
+            "numberOfTriesPerFrequency": 1,
+            "timePerTry": 0,
+            "scoreMultiplier": 4
+        },
+        {
+            "id": 4,
+            "numberOfFrequenciesToGuess": 10,
+            "usePredefinedBandOnly": false,
+            "numberOfTriesPerFrequency": 3,
+            "timePerTry": 0,
+            "scoreMultiplier": 5
+        }
+    ]
+    return rules;
+}
 
 function getDifficulties(){
     let json = [
         {
-            "id": 1,
+            "id": 0,
             "displayAs": "Simple"
         },
         {
-            "id": 2,
+            "id": 1,
             "displayAs": "Tricky"
         },
         {
-            "id": 3,
+            "id": 2,
             "displayAs": "Difficult"
         },
         {
-            "id": 4,
+            "id": 3,
             "displayAs": "Impossible"
         },
         {
-            "id": 5,
+            "id": 4,
             "displayAs": "Even worse"
         }
     ]
@@ -123,19 +159,50 @@ function getFrequencies(){
     return frequencies;
 }
 
-function startGame(){
-    /*  Get config
-        Pick list of frequencies
-        Countdown then start timer
-    */
+function getDifficulty(){
+    return $("#difficulty label input:checked").val()
 }
 
 function startGame(){
     // Get difficulty
-    let difficulty = $("#difficulty").value;
-    
-    // Pick random frqs
+    let difficulty = getDifficulty();
+    let tmprules = getRules();
+    let rules = tmprules[difficulty];
 
+    // Pick random frqs
+    let frqs = []
+
+
+    console.log("Difficulty:");
+    console.log(difficulty);
+
+    console.log("Rules");
+    console.log(rules);
+
+    let bandFrequencies = getFrequencies();
+
+    for(var i=0; i<rules.numberOfFrequenciesToGuess; i++){
+        if (rules.usePredefinedBandOnly){
+            var numberOfBands = getFrequencies().length;
+            var randVal = Math.floor(Math.random() * (numberOfBands - 0) + 0);
+
+            console.log("Random frqIdx:");
+            console.log(randVal);
+
+            frqs.push(bandFrequencies[randVal]);
+        } else {
+            var randFrq = Math.floor(Math.random() * (16000 - 200) + 200);
+
+            console.log("Random frq:");
+            console.log(randFrq);
+
+            let f = {"frq": randFrq, "displayAs": randFrq}
+            frqs.push(f);
+        }
+    }
+
+    console.log("Frequencies");
+    console.log(frqs);
     
 }
 
@@ -165,6 +232,10 @@ $(function (){
 
     $(".frqButton").on("click", function(){
         playSound(getVolume(), $(this).attr("data-frq"), 1);
+    });
+
+    $("#startButton").on("click", function(){
+        startGame();
     });
     /** End setup */
 });
