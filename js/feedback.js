@@ -1,3 +1,5 @@
+var player;
+
 let storage = {
     "streaks": [
         {
@@ -7,6 +9,12 @@ let storage = {
             "longestStreakEver": 43
         }
     ]
+}
+
+function delay(milliseconds){
+    return new Promise(resolve => {
+        setTimeout(resolve, milliseconds);
+    });
 }
 
 function getRules(){
@@ -117,7 +125,15 @@ function playSound(volume, frq, duration = 1) {
     var source = context.createBufferSource();
     source.buffer = buffer;
     source.connect(context.destination);
+    player = context;
     source.start(0);
+}
+
+function stopSound(){
+    // Stopping sound
+    if (player instanceof AudioContext){
+        player.close();
+    }
 }
 
 
@@ -163,49 +179,6 @@ function getDifficulty(){
     return $("#difficulty label input:checked").val()
 }
 
-function startGame(){
-    // Get difficulty
-    let difficulty = getDifficulty();
-    let tmprules = getRules();
-    let rules = tmprules[difficulty];
-
-    // Pick random frqs
-    let frqs = []
-
-
-    console.log("Difficulty:");
-    console.log(difficulty);
-
-    console.log("Rules");
-    console.log(rules);
-
-    let bandFrequencies = getFrequencies();
-
-    for(var i=0; i<rules.numberOfFrequenciesToGuess; i++){
-        if (rules.usePredefinedBandOnly){
-            var numberOfBands = getFrequencies().length;
-            var randVal = Math.floor(Math.random() * (numberOfBands - 0) + 0);
-
-            console.log("Random frqIdx:");
-            console.log(randVal);
-
-            frqs.push(bandFrequencies[randVal]);
-        } else {
-            var randFrq = Math.floor(Math.random() * (16000 - 200) + 200);
-
-            console.log("Random frq:");
-            console.log(randFrq);
-
-            let f = {"frq": randFrq, "displayAs": randFrq}
-            frqs.push(f);
-        }
-    }
-
-    console.log("Frequencies");
-    console.log(frqs);
-    
-}
-
 var frq = getFrequencies();
 var elmt = document.getElementById('demo');
 
@@ -238,6 +211,79 @@ $(function (){
         startGame();
     });
     /** End setup */
+
+    function startCountdown(){
+        $("#overlay").show();
+        $("#countdown").show();
+        
+        $("#countdown span").addClass('flash');
+        $("#countdown span").empty().append("3");
+        setTimeout(function() {
+            $("#countdown span").empty().append("2");
+            setTimeout(function() {
+                $("#countdown span").empty().append("1");
+                setTimeout(function() {
+                    $("#countdown span").empty().append("Go!");
+                    $("#countdown span").removeClass('flash');
+                    $("#countdown").fadeOut();
+                    $("#overlay").fadeOut();
+                }, 1000);
+            }, 1000);
+        }, 1000);
+    }
+
+    async function startGame(){
+        // Get difficulty
+        let difficulty = getDifficulty();
+        let tmprules = getRules();
+        let rules = tmprules[difficulty];
+    
+        // Pick random frqs
+        let frqs = []
+    
+        console.log("Difficulty:");
+        console.log(difficulty);
+    
+        console.log("Rules");
+        console.log(rules);
+    
+        let bandFrequencies = getFrequencies();
+    
+        for(var i=0; i<rules.numberOfFrequenciesToGuess; i++){
+            if (rules.usePredefinedBandOnly){
+                var numberOfBands = getFrequencies().length;
+                var randVal = Math.floor(Math.random() * (numberOfBands - 0) + 0);
+    
+                console.log("Random frqIdx:");
+                console.log(randVal);
+    
+                frqs.push(bandFrequencies[randVal]);
+            } else {
+                var randFrq = Math.floor(Math.random() * (16000 - 200) + 200);
+    
+                console.log("Random frq:");
+                console.log(randFrq);
+    
+                let f = {"frq": randFrq, "displayAs": randFrq}
+                frqs.push(f);
+            }
+        }
+    
+        console.log("Frequencies");
+        console.log(frqs);
+    
+        console.log("Starting game");
+        
+        startCountdown();
+        await delay(3000);
+
+            for(var i=0; i<3; i++){
+                console.log("Playing " + frqs[i].frq);
+                playSound(getVolume(), frqs[i].frq, 1);
+                await delay(1500);                
+            }
+
+    }
 });
 
 
