@@ -1,4 +1,9 @@
-var player;
+let player;
+let gamestate = {}
+let gameTimer
+
+let p1;
+let p2;
 
 let storage = {
     "streaks": [
@@ -18,7 +23,7 @@ function delay(milliseconds){
 }
 
 function getRules(){
-let rules = 
+    let rules = 
     [
         {
             "id": 0,
@@ -136,6 +141,18 @@ function stopSound(){
     }
 }
 
+function gametick(param){
+    
+    p1 = this;
+    p2 = param;
+
+    console.log(this.getAttribute("data-frq"));
+
+    if (gamestate.started){
+        // Use this to start and intercept during game
+    }
+}
+
 
 function getFrequencies(){
     var frequencies = [
@@ -203,7 +220,7 @@ $(function (){
         $("#menu").toggle();
     });
 
-    $(".frqButton").on("click", function(){
+    $(".frqButton").off().on("click", function(){
         playSound(getVolume(), $(this).attr("data-frq"), 1);
     });
 
@@ -250,39 +267,36 @@ $(function (){
         let bandFrequencies = getFrequencies();
     
         for(var i=0; i<rules.numberOfFrequenciesToGuess; i++){
+            let randFrq =0;
+
             if (rules.usePredefinedBandOnly){
                 var numberOfBands = getFrequencies().length;
-                var randVal = Math.floor(Math.random() * (numberOfBands - 0) + 0);
-    
-                console.log("Random frqIdx:");
-                console.log(randVal);
-    
-                frqs.push(bandFrequencies[randVal]);
+                var randFrqIdx = Math.floor(Math.random() * (numberOfBands - 0) + 0);    
+                randFrq = bandFrequencies[randFrqIdx];
             } else {
-                var randFrq = Math.floor(Math.random() * (16000 - 200) + 200);
-    
-                console.log("Random frq:");
-                console.log(randFrq);
-    
-                let f = {"frq": randFrq, "displayAs": randFrq}
-                frqs.push(f);
+                randFrqVal = Math.floor(Math.random() * (16000 - 200) + 200);
+                randFrq = {"frq": randFrqVal, "displayAs": randFrqVal}
             }
+
+            randFrq['timeInMs']=0;
+            randFrq['numTries']=0;
+            frqs.push(randFrq);
         }
     
-        console.log("Frequencies");
-        console.log(frqs);
-    
-        console.log("Starting game");
+        gamestate["frqs"] = frqs;
+        gamestate["rules"] = rules;
+        gamestate["currentStep"] = 0;
+        gamestate["started"] = false;
+        gamestate["timer"] = null;
+        
+        console.log("Starting game. Gamestate:");
+        console.log(gamestate);
         
         startCountdown();
         await delay(3000);
 
-            for(var i=0; i<3; i++){
-                console.log("Playing " + frqs[i].frq);
-                playSound(getVolume(), frqs[i].frq, 1);
-                await delay(1500);                
-            }
-
+        // Start it
+        $("button.frqButton").off().on("click", gametick);
     }
 });
 
