@@ -26,3 +26,23 @@ Difficulty is controlled in the following manner:
 -----
 
 Increasing volume? Lower volume/successful guess => higher score?
+
+-----
+
+jq.startGame()
+    -> Picks frequencies, finds difficulty and rules and 
+       sets gamestate
+    -> Populates the data-attr on frq buttons, 
+       sets the handler
+    -> Starts the countdown
+
+    -> Todo: Must start the first step
+
+gametick()
+    Fired by buttonclick
+    -> Stops currently playing sound
+    -> Gets duration of player guess
+    -> Starts the next step
+    -> Start the next frq
+
+    -> If at the end, finish game. 

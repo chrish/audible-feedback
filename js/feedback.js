@@ -2,6 +2,8 @@ let player;
 let gamestate = {}
 let gameTimer
 
+let DEBUG = true;
+
 let p1;
 let p2;
 
@@ -14,6 +16,12 @@ let storage = {
             "longestStreakEver": 43
         }
     ]
+}
+
+function clog(msg){
+    if(DEBUG){
+        console.log(msg);
+    }
 }
 
 function delay(milliseconds){
@@ -98,7 +106,7 @@ function getDifficulties(){
 
 function getVolume(){
     let vol = document.getElementById("volumeSldr").value/4;
-    console.log(vol);
+    clog(vol);
     return vol/100;
 }
 
@@ -141,15 +149,55 @@ function stopSound(){
     }
 }
 
-function gametick(param){
-    
-    p1 = this;
-    p2 = param;
+function playNextSound(){
+    // Assume "next" is the current step
+    if (typeof gamestate.frqs[gamestate.currentStep] !== 'undefined'){
+        clog("Playing...");
+        clog(gamestate.frqs[gamestate.currentStep].frq);
+        playSound(getVolume(), gamestate.frqs[gamestate.currentStep].frq, 100);
+    }
+}
 
-    console.log(this.getAttribute("data-frq"));
+function gametick(param = false){
+    clog("Game started222");
+    let guessedFrq;
+    let correctFrq = 0;
+    
+    if (param !== false){
+        guessedFrq = this.getAttribute("data-frq");
+    }
+
+    if (typeof gamestate.frqs[gamestate.currentStep] !== 'undefined'){
+        correctFrq = gamestate.frqs[gamestate.currentStep].frq;
+    } 
 
     if (gamestate.started){
         // Use this to start and intercept during game
+        clog("Game started");
+
+        clog("Guessed - correct frq:")
+        clog(guessedFrq + " - " + correctFrq);
+        
+        // User has clicked button, see if it's the correct one:
+        if (guessedFrq == correctFrq){
+            let guessTimestamp = new Date();
+            let guessTime = guessTimestamp.getTime() - gamestate.timer.getTime();
+            clog("Time: " + guessTime);
+
+            stopSound();
+
+        } else {
+            // Flash wrong frqmessage
+        }
+
+    } else {
+        // Game not started, start it
+        gamestate.started = true;
+        gamestate.currentStep = 0;
+
+        // start timer
+        gamestate["timer"] = new Date();
+        playNextSound();
     }
 }
 
@@ -258,11 +306,11 @@ $(function (){
         // Pick random frqs
         let frqs = []
     
-        console.log("Difficulty:");
-        console.log(difficulty);
+        clog("Difficulty:");
+        clog(difficulty);
     
-        console.log("Rules");
-        console.log(rules);
+        clog("Rules");
+        clog(rules);
     
         let bandFrequencies = getFrequencies();
     
@@ -271,7 +319,7 @@ $(function (){
 
             if (rules.usePredefinedBandOnly){
                 var numberOfBands = getFrequencies().length;
-                var randFrqIdx = Math.floor(Math.random() * (numberOfBands - 0) + 0);    
+                var randFrqIdx = Math.floor(Math.random() * (numberOfBands - 6) + 3);    
                 randFrq = bandFrequencies[randFrqIdx];
             } else {
                 randFrqVal = Math.floor(Math.random() * (16000 - 200) + 200);
@@ -289,14 +337,15 @@ $(function (){
         gamestate["started"] = false;
         gamestate["timer"] = null;
         
-        console.log("Starting game. Gamestate:");
-        console.log(gamestate);
+        clog("Starting game. Gamestate:");
+        clog(gamestate);
         
         startCountdown();
         await delay(3000);
 
         // Start it
         $("button.frqButton").off().on("click", gametick);
+        gametick(false);
     }
 });
 
