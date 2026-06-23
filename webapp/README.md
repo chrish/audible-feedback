@@ -1,48 +1,24 @@
 # audible-feedback
 Simple webapp for training feedback frequencies.
 
-It has modes of operation: 
-* Simple point-and-click: Click on a frequency to hear it. 
-* Game: A frequency is played, you need to guess which one by clicking on the correct band. 
+Live at **https://chrish.github.io/audible-feedback/**
 
-# Scoring and difficulty
+## Modes
 
-Difficulty is controlled in the following manner: 
-* Base score is 1 point for each correct answer. Difficulty level increases score by given multiplier. 
+- **Explore** — click any of the 31 ISO frequency bands to hear it play
+- **Guess** — play a random frequency and identify which band it is
+- **Competition** — timed session (10–30 questions) with full result statistics
 
-* Fixed bands and frequencies, no timer. x1
-* * With timer, x1,5
-* Fixed bands, frequencies range from any frequency between 20-20k. x4
-* * With timer, x6
-* * * Shorter duration, lower volume. x10
-* * * * Moving buttons; x40. Must obtain given score on previous first. 
+## Deployment
 
-# Base rules 
-* One round per day, regardless of difficulty. 
-* Scoring icon (shareable on SoMe: Level|Streak|Points, eg 1|24|24)
+Handled automatically by GitHub Actions on every push to `main`. The workflow builds `dist/` from the `webapp/` source and deploys it to GitHub Pages.
 
+To enable it: go to **Settings → Pages** and set the source to **GitHub Actions**.
 
+## Development
 
------
+No build step required. Open `index.html` directly in a browser, or serve with any static file server:
 
-Increasing volume? Lower volume/successful guess => higher score?
-
------
-
-jq.startGame()
-    -> Picks frequencies, finds difficulty and rules and 
-       sets gamestate
-    -> Populates the data-attr on frq buttons, 
-       sets the handler
-    -> Starts the countdown
-
-    -> Todo: Must start the first step
-
-gametick()
-    Fired by buttonclick
-    -> Stops currently playing sound
-    -> Gets duration of player guess
-    -> Starts the next step
-    -> Start the next frq
-
-    -> If at the end, finish game. 
+```bash
+python3 -m http.server
+```
