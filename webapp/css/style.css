@@ -1,0 +1,494 @@
+@font-face {
+  font-family: Raleway;
+  src: url("fonts/Raleway-VariableFont_wght.ttf");
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:          #141820;
+  --bg-card:     #1c2230;
+  --bg-eq:       #0d1520;
+  --accent:      #00c896;
+  --accent-dim:  #008260;
+  --accent-glow: #00ffbe;
+  --bar-default: #1e3a52;
+  --bar-hover:   #2a5a7a;
+  --bar-correct: #00c853;
+  --bar-wrong:   #ff3d5a;
+  --bar-reveal:  #00c896;
+  --text:        #d8f0e8;
+  --text-dim:    #6a9a88;
+  --blue:        #2a4a7a;
+}
+
+body {
+  font-family: Raleway, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.app {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+}
+
+/* ── Header ──────────────────────────────────────────── */
+
+header {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--accent);
+  text-shadow: 0 0 30px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+.subtitle {
+  color: var(--text-dim);
+  font-size: 0.78rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* ── Mode Tabs ───────────────────────────────────────── */
+
+.mode-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--blue);
+  margin-bottom: 0;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  color: var(--text-dim);
+  font-family: Raleway, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 12px 32px;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tab-btn:hover {
+  color: var(--text);
+}
+
+.tab-btn.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ── Global controls ─────────────────────────────────── */
+
+.global-controls {
+  display: flex;
+  align-items: center;
+  padding: 10px 0 4px;
+  border-bottom: 1px solid var(--blue);
+}
+
+/* ── Mode Panels ─────────────────────────────────────── */
+
+.mode-panel {
+  display: none;
+  padding: 18px 0 12px;
+  min-height: 80px;
+}
+
+.mode-panel.active {
+  display: block;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.control-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.control-label input[type="range"] {
+  width: 130px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.slider-val {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 36px;
+}
+
+<<<<<<< HEAD:css/style.css
+.hint {
+  color: var(--text-dim);
+  font-size: 0.8rem;
+  margin-top: 10px;
+  letter-spacing: 0.5px;
+}
+
+/* ── Buttons ─────────────────────────────────────────── */
+
+.play-btn {
+  background: var(--accent);
+  border: none;
+  border-radius: 4px;
+  color: #0a1510;
+  font-family: Raleway, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 10px 22px;
+  cursor: pointer;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+
+.play-btn:hover {
+  background: var(--accent-glow);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 50%, transparent);
+}
+
+.play-btn:disabled {
+  background: var(--accent-dim);
+  cursor: not-allowed;
+  box-shadow: none;
+  opacity: 0.55;
+}
+
+.replay-btn {
+  background: none;
+  border: 1px solid var(--text-dim);
+  border-radius: 4px;
+  color: var(--text-dim);
+  font-family: Raleway, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.replay-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.replay-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ── Status ──────────────────────────────────────────── */
+
+.status-box {
+  min-height: 28px;
+  margin-top: 10px;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+
+.status-box.correct { color: var(--bar-correct); }
+.status-box.wrong   { color: var(--bar-wrong); }
+
+/* ── Competition progress ────────────────────────────── */
+
+.comp-stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text-dim);
+}
+
+.comp-stats strong {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.comp-stats .stat-good strong { color: var(--bar-correct); }
+.comp-stats .stat-bad strong  { color: var(--bar-wrong); }
+
+/* ── EQ Visualizer ───────────────────────────────────── */
+
+.eq-container {
+  background: var(--bg-card);
+  border: 1px solid var(--blue);
+  border-radius: 10px;
+  padding: 24px 20px 0;
+  margin-top: 12px;
+}
+
+.eq-bands {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 180px;
+}
+
+.eq-band {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  gap: 0;
+  height: 100%;
+  min-width: 0;
+  user-select: none;
+}
+
+/* The bar area */
+.eq-bar {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  background: var(--bg-eq);
+  border-radius: 3px 3px 0 0;
+  overflow: hidden;
+}
+
+/* Fill layer — shows state */
+.eq-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 38%;
+  background: var(--bar-default);
+  border-radius: 2px 2px 0 0;
+  transition: background 0.12s;
+}
+
+/* Hover */
+.eq-band:hover .eq-fill {
+  background: var(--bar-hover);
+}
+
+/* Playing */
+.eq-band.playing .eq-fill {
+  background: var(--accent);
+  animation: eq-pulse 0.45s ease-in-out infinite alternate;
+}
+
+@keyframes eq-pulse {
+  from { height: 28%; }
+  to   { height: 96%; }
+}
+
+/* Correct answer */
+.eq-band.correct .eq-fill {
+  height: 100%;
+  background: var(--bar-correct);
+  animation: none;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--bar-correct) 60%, transparent);
+}
+
+/* Wrong guess */
+.eq-band.wrong .eq-fill {
+  height: 100%;
+  background: var(--bar-wrong);
+  animation: none;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--bar-wrong) 60%, transparent);
+}
+
+/* Revealed correct answer after wrong guess */
+.eq-band.reveal .eq-fill {
+  height: 100%;
+  background: var(--bar-reveal);
+  animation: none;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--bar-reveal) 60%, transparent);
+}
+
+/* Frequency label */
+.eq-label {
+  font-size: 0.78rem;
+  color: var(--text);
+  white-space: nowrap;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  transition: color 0.12s;
+}
+
+.eq-band:hover .eq-label,
+.eq-band.playing .eq-label {
+  color: var(--text);
+}
+
+/* Disabled EQ (while playing / awaiting interaction) */
+.eq-bands.disabled .eq-band {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Results Modal ────────────────────────────────────── */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  backdrop-filter: blur(4px);
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal {
+  background: var(--bg-card);
+  border: 1px solid var(--accent-dim);
+  border-radius: 12px;
+  padding: 40px 36px 32px;
+  max-width: 500px;
+  width: 92%;
+  text-align: center;
+  box-shadow: 0 0 60px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+.modal h2 {
+  color: var(--accent);
+  font-size: 1.4rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.result-stat {
+  background: var(--bg-eq);
+  border: 1px solid var(--blue);
+  border-radius: 8px;
+  padding: 16px 12px;
+}
+
+.result-stat .value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+
+.result-stat .label {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+.result-stat.good .value { color: var(--bar-correct); }
+.result-stat.bad  .value { color: var(--bar-wrong); }
+
+.hidden { display: none !important; }
+=======
+#startButton{
+    padding: 25px;
+    text-align: center;
+    width: 10vw;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #36454F;
+    transition: 500ms;
+    cursor: pointer;
+}
+
+#startButton:hover{
+    transition: 500ms;
+    background-color: #345d79;
+}
+
+#countdown{
+    width: 300px;
+    height: 200px;
+    margin-left: -150px;
+    left: 50%;
+    position: absolute;
+    z-index: 10000;
+    border: 2px solid #000;
+    border-radius: 25px;
+    background-color: #36454F;
+    text-align: center;
+    display: none;
+}
+
+#countdown span{
+    font-size: 46px;
+    font-weight: bold;
+}
+
+#countdown span::before {
+    content: attr(data-text);
+  }
+#countdown span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+#countdown span.flash::after {
+    transition: 1s ease;
+    transform: scale(2);
+    opacity: 0;
+  }
+
+#overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    opacity: 0.75;
+    background-color: #333;
+    top: 0px;
+    left: 0px;
+    display: none;
+}
+>>>>>>> refs/remotes/origin/firstVersion:webapp/css/style.css
