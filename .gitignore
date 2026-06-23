@@ -1,0 +1,6 @@
+# macOS
+.DS_Store
+
+# Node (in case packages are added later)
+node_modules/
+package-lock.json
